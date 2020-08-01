@@ -6,7 +6,7 @@ interface menuBtnProps {
 
 const MenuBtn: React.FC<menuBtnProps> = (props: menuBtnProps) => {
   const { title } = props;
-  const btn = <button type="button">{title}</button>;
+  const btn = <button type="button" className="btn btn-info">{title}</button>;
   return (
     <>
       {btn}
