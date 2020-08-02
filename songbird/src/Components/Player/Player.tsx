@@ -11,6 +11,8 @@ const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
 
   return (
     <AudioPlayer
+      autoPlay={false}
+      autoPlayAfterSrcChange={false}
       src={src}
     />
   );

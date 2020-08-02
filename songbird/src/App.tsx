@@ -6,7 +6,7 @@ import Player from './Components/Player/Player';
 import BirdsList from './Components/BirdsList/BirdsList';
 import Info from './Components/Info/Info';
 import {
-  BIRDS_DATA, MAX_COUNT_BIRDS, AGREE_ANSWER, ERROR_ANSWER, ZERO,
+  BIRDS_DATA, MAX_COUNT_BIRDS, AGREE_ANSWER, ERROR_ANSWER, ZERO, MAX_FACTOR, BIRDS_IMG_SRC,
 } from './constants';
 import { getRandomNumber, playAudio } from './service';
 import { Bird } from './Interfaces/Bird';
@@ -18,6 +18,7 @@ interface AppState {
   actualBird: Bird,
   selectedBird: Bird,
   isFalse: boolean,
+  imgSrc: string,
 }
 
 class App extends React.Component<{}, AppState> {
@@ -25,14 +26,15 @@ class App extends React.Component<{}, AppState> {
     super(props);
     this.state = {
       isFalse: true,
-      score: 0,
-      level: 0,
-      isFactor: 5,
-      actualBird: this.getRandomBird(0),
+      score: ZERO,
+      level: ZERO,
+      isFactor: MAX_FACTOR,
+      actualBird: this.getRandomBird(ZERO),
+      imgSrc: BIRDS_IMG_SRC,
       selectedBird: {
         audio: '',
         description: '',
-        id: 0,
+        id: ZERO,
         image: '',
         name: '',
         species: '',
@@ -43,8 +45,8 @@ class App extends React.Component<{}, AppState> {
   getRandomBird = (level: number): Bird => BIRDS_DATA[level][getRandomNumber(MAX_COUNT_BIRDS)];
 
   incrementScore = () => {
-    const { isFactor } = this.state;
-    this.setState({ score: isFactor });
+    const { score, isFactor } = this.state;
+    this.setState({ score: score + isFactor });
   }
 
   decrementIsFactor = () => {
@@ -56,14 +58,20 @@ class App extends React.Component<{}, AppState> {
     }
   }
 
+  stepNextLevel = () => {
+    const { level } = this.state;
+    this.setState({ actualBird: this.getRandomBird(level), isFalse: true, isFactor: MAX_FACTOR });
+  }
+
   checkAnswer = (selectedBird: Bird) => {
     const { actualBird } = this.state;
+    let { level } = this.state;
     this.setState({ selectedBird });
 
     if (selectedBird === actualBird) {
       playAudio(AGREE_ANSWER);
       this.incrementScore();
-      this.setState({ isFalse: false });
+      this.setState({ isFalse: false, level: level += 1, imgSrc: selectedBird.image });
     } else {
       playAudio(ERROR_ANSWER);
       this.decrementIsFactor();
@@ -77,7 +85,13 @@ class App extends React.Component<{}, AppState> {
       actualBird,
       selectedBird,
       isFalse: answerIsTrue,
+      imgSrc,
     } = this.state;
+
+    const imgStyle = {
+      maxWidth: '200px',
+      maxHeight: '155px',
+    };
 
     return (
       <div className="container">
@@ -92,18 +106,21 @@ class App extends React.Component<{}, AppState> {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 mt-5">
+          <div className="col-12 col-md-4 col-lg-3 mt-5 img-fluid">
+            <img src={imgSrc} style={imgStyle} alt="bird" />
+          </div>
+          <div className="col-12 col-md-8 col-lg-9 mt-5 d-flex align-item-center w-100">
             <Player src={actualBird.audio} />
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-lg-6 mt-5">
+          <div className="col-12 col-md-4 col-lg-6 mt-5">
             <BirdsList
               birds={BIRDS_DATA[level]}
               checkAnswer={this.checkAnswer}
             />
           </div>
-          <div className="col-12 col-lg-6 mt-5">
+          <div className="col-12 col-md-8 col-lg-6 mt-5">
             <Info bird={selectedBird} />
           </div>
         </div>
@@ -113,6 +130,7 @@ class App extends React.Component<{}, AppState> {
               type="button"
               className="btn btn-info w-100"
               disabled={answerIsTrue}
+              onClick={() => this.stepNextLevel()}
             >
               Next level
             </button>

@@ -4,9 +4,13 @@ export const MAX_COUNT_BIRDS = 6;
 
 export const ZERO = 0;
 
+export const MAX_FACTOR = 5;
+
 export const AGREE_ANSWER = '/audio/correct.mp3';
 
 export const ERROR_ANSWER = '/audio/error.mp3';
+
+export const BIRDS_IMG_SRC = '/img/bird.jpg';
 
 export const BIRDS_DATA = [
   [
