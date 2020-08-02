@@ -2,6 +2,10 @@ export const BIRDS: string[] = ['Разминка', 'Воробьиные', 'Л�
 
 export const MAX_COUNT_BIRDS = 6;
 
+export const AGREE_ANSWER = '/audio/correct.mp3';
+
+export const ERROR_ANSWER = '/audio/error.mp3';
+
 export const BIRDS_DATA = [
   [
     {

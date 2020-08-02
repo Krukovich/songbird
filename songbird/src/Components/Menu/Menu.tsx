@@ -8,7 +8,7 @@ interface IMap {
 
 const Menu = () => (
   <>
-    {BIRDS.map((title) => <MenuBtn title={title} />)}
+    {BIRDS.map((title, index) => <MenuBtn key={index} title={title} />)}
   </>
 );
 
