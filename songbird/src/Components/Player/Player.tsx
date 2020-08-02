@@ -8,9 +8,9 @@ interface PlayerProps {
 
 const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
   const { src } = props;
+
   return (
     <AudioPlayer
-      autoPlay
       src={src}
     />
   );

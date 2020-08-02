@@ -3,6 +3,8 @@ import React from 'react';
 import Header from './Components/Header/Header';
 import Menu from './Components/Menu/Menu';
 import Player from './Components/Player/Player';
+import BirdsList from './Components/BirdsList/BirdsList';
+import Info from './Components/Info/Info';
 import { BIRDS_DATA } from './constants';
 
 interface AppState {
@@ -26,7 +28,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
-    const { score } = this.state;
+    const { score, birds } = this.state;
 
     return (
       <>
@@ -43,15 +45,15 @@ class App extends React.Component<{}, AppState> {
           </div>
           <div className="row">
             <div className="col-12 mt-5">
-              <Player src="src" />
+              <Player src={(birds.length !== 0) ? birds[0].audio : ''} />
             </div>
           </div>
           <div className="row">
             <div className="col-12 col-lg-6 mt-5">
-              Место в вариантом ответа
+              <BirdsList />
             </div>
             <div className="col-12 col-lg-6 mt-5">
-              Место для подробной информации
+              <Info />
             </div>
           </div>
           <div className="row">
