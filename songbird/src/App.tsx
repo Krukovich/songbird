@@ -5,23 +5,29 @@ import Menu from './Components/Menu/Menu';
 import Player from './Components/Player/Player';
 import BirdsList from './Components/BirdsList/BirdsList';
 import Info from './Components/Info/Info';
-import { BIRDS_DATA, MAX_COUNT_BIRDS, AGREE_ANSWER, ERROR_ANSWER } from './constants';
+import {
+  BIRDS_DATA, MAX_COUNT_BIRDS, AGREE_ANSWER, ERROR_ANSWER, ZERO,
+} from './constants';
 import { getRandomNumber, playAudio } from './service';
 import { Bird } from './Interfaces/Bird';
 
 interface AppState {
   score: number,
   level: number,
+  isFactor: number,
   actualBird: Bird,
   selectedBird: Bird,
+  isFalse: boolean,
 }
 
 class App extends React.Component<{}, AppState> {
   constructor(props: any) {
     super(props);
     this.state = {
+      isFalse: true,
       score: 0,
       level: 0,
+      isFactor: 5,
       actualBird: this.getRandomBird(0),
       selectedBird: {
         audio: '',
@@ -34,7 +40,21 @@ class App extends React.Component<{}, AppState> {
     };
   }
 
-  getRandomBird = (level: number): Bird => BIRDS_DATA[level][getRandomNumber(MAX_COUNT_BIRDS)]
+  getRandomBird = (level: number): Bird => BIRDS_DATA[level][getRandomNumber(MAX_COUNT_BIRDS)];
+
+  incrementScore = () => {
+    const { isFactor } = this.state;
+    this.setState({ score: isFactor });
+  }
+
+  decrementIsFactor = () => {
+    let { isFactor } = this.state;
+    if (isFactor !== ZERO) {
+      this.setState({ isFactor: isFactor -= 1 });
+    } else {
+      this.setState({ isFactor: 0 });
+    }
+  }
 
   checkAnswer = (selectedBird: Bird) => {
     const { actualBird } = this.state;
@@ -42,8 +62,11 @@ class App extends React.Component<{}, AppState> {
 
     if (selectedBird === actualBird) {
       playAudio(AGREE_ANSWER);
+      this.incrementScore();
+      this.setState({ isFalse: false });
     } else {
       playAudio(ERROR_ANSWER);
+      this.decrementIsFactor();
     }
   }
 
@@ -53,6 +76,7 @@ class App extends React.Component<{}, AppState> {
       level,
       actualBird,
       selectedBird,
+      isFalse: answerIsTrue,
     } = this.state;
 
     return (
@@ -88,9 +112,10 @@ class App extends React.Component<{}, AppState> {
             <button
               type="button"
               className="btn btn-info w-100"
+              disabled={answerIsTrue}
             >
               Next level
-              </button>
+            </button>
           </div>
         </div>
       </div>
