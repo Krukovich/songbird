@@ -1,5 +1,7 @@
 export const BIRDS: string[] = ['Разминка', 'Воробьиные', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы'];
 
+export const MAX_COUNT_BIRDS = 6;
+
 export const BIRDS_DATA = [
   [
     {

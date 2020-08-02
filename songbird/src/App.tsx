@@ -5,30 +5,53 @@ import Menu from './Components/Menu/Menu';
 import Player from './Components/Player/Player';
 import BirdsList from './Components/BirdsList/BirdsList';
 import Info from './Components/Info/Info';
-import { BIRDS_DATA } from './constants';
+import { BIRDS_DATA, MAX_COUNT_BIRDS } from './constants';
+import { getRandomNumber } from './service';
+import { Bird } from './Interfaces/Bird';
 
 interface AppState {
-  birds: any[],
   score: number,
   level: number,
+  actualBird: Bird,
+  selectedBird: Bird,
 }
 
 class App extends React.Component<{}, AppState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      birds: [],
       score: 0,
       level: 0,
+      actualBird: this.getRandomBird(0),
+      selectedBird: {
+        audio: '',
+        description: '',
+        id: 0,
+        image: '',
+        name: '',
+        species: '',
+      },
     };
   }
 
-  componentDidMount = () => {
-    this.setState({ birds: BIRDS_DATA });
+  getRandomBird = (level: number): Bird => BIRDS_DATA[level][getRandomNumber(MAX_COUNT_BIRDS)]
+
+  checkAnswer = (selectedBird: Bird) => {
+    const { actualBird } = this.state;
+    this.setState({ selectedBird });
+
+    if (selectedBird === actualBird) {
+      alert('!!!!');
+    }
   }
 
   render() {
-    const { score, birds } = this.state;
+    const {
+      score,
+      level,
+      actualBird,
+      selectedBird,
+    } = this.state;
 
     return (
       <>
@@ -45,15 +68,18 @@ class App extends React.Component<{}, AppState> {
           </div>
           <div className="row">
             <div className="col-12 mt-5">
-              <Player src={(birds.length !== 0) ? birds[0].audio : ''} />
+              <Player src={actualBird.audio} />
             </div>
           </div>
           <div className="row">
             <div className="col-12 col-lg-6 mt-5">
-              <BirdsList />
+              <BirdsList
+                birds={BIRDS_DATA[level]}
+                checkAnswer={this.checkAnswer}
+              />
             </div>
             <div className="col-12 col-lg-6 mt-5">
-              <Info />
+              <Info bird={selectedBird} />
             </div>
           </div>
           <div className="row">
