@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React from 'react';
 import Header from './Components/Header/Header';
 import Menu from './Components/Menu/Menu';
@@ -59,19 +58,19 @@ class App extends React.Component<{}, AppState> {
   }
 
   stepNextLevel = () => {
-    const { level } = this.state;
+    let { level } = this.state;
+    this.setState({ level: level += 1 });
     this.setState({ actualBird: this.getRandomBird(level), isFalse: true, isFactor: MAX_FACTOR });
   }
 
   checkAnswer = (selectedBird: Bird) => {
     const { actualBird } = this.state;
-    let { level } = this.state;
     this.setState({ selectedBird });
 
     if (selectedBird === actualBird) {
       playAudio(AGREE_ANSWER);
       this.incrementScore();
-      this.setState({ isFalse: false, level: level += 1, imgSrc: selectedBird.image });
+      this.setState({ isFalse: false, imgSrc: selectedBird.image });
     } else {
       playAudio(ERROR_ANSWER);
       this.decrementIsFactor();
@@ -117,6 +116,8 @@ class App extends React.Component<{}, AppState> {
           <div className="col-12 col-md-4 col-lg-6 mt-5">
             <BirdsList
               birds={BIRDS_DATA[level]}
+              selectedBird={selectedBird}
+              actualBird={actualBird}
               checkAnswer={this.checkAnswer}
             />
           </div>
