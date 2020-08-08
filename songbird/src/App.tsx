@@ -4,6 +4,8 @@ import Menu from './Components/Menu/Menu';
 import Player from './Components/Player/Player';
 import BirdsList from './Components/BirdsList/BirdsList';
 import Info from './Components/Info/Info';
+import Alert from './Components/Alert/Alert';
+import Hint from './Components/Hint/Hint';
 import {
   BIRDS_DATA, MAX_COUNT_BIRDS, AGREE_ANSWER, ERROR_ANSWER, ZERO, MAX_FACTOR, BIRDS_IMG_SRC,
 } from './constants';
@@ -60,7 +62,14 @@ class App extends React.Component<{}, AppState> {
   stepNextLevel = () => {
     let { level } = this.state;
     this.setState({ level: level += 1 });
-    this.setState({ actualBird: this.getRandomBird(level), isFalse: true, isFactor: MAX_FACTOR });
+    this.setState(
+      {
+        actualBird: this.getRandomBird(level),
+        isFalse: true,
+        isFactor: MAX_FACTOR,
+        imgSrc: BIRDS_IMG_SRC,
+      },
+    );
   }
 
   checkAnswer = (selectedBird: Bird) => {
@@ -108,7 +117,8 @@ class App extends React.Component<{}, AppState> {
           <div className="col-12 col-md-4 col-lg-3 mt-5 img-fluid">
             <img src={imgSrc} style={imgStyle} alt="bird" />
           </div>
-          <div className="col-12 col-md-8 col-lg-9 mt-5 d-flex align-item-center w-100">
+          <div className="col-12 col-md-8 col-lg-9 mt-5 d-flex flex-column align-item-center w-100">
+            <Alert isAgree={answerIsTrue} nameBird={actualBird.name} />
             <Player src={actualBird.audio} />
           </div>
         </div>
@@ -122,7 +132,7 @@ class App extends React.Component<{}, AppState> {
             />
           </div>
           <div className="col-12 col-md-8 col-lg-6 mt-5">
-            <Info bird={selectedBird} />
+            {(answerIsTrue) ? <Hint /> : <Info src={imgSrc} bird={selectedBird} />}
           </div>
         </div>
         <div className="row">
