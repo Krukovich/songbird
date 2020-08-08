@@ -7,7 +7,14 @@ import Info from './Components/Info/Info';
 import Alert from './Components/Alert/Alert';
 import Hint from './Components/Hint/Hint';
 import {
-  BIRDS_DATA, MAX_COUNT_BIRDS, AGREE_ANSWER, ERROR_ANSWER, ZERO, MAX_FACTOR, BIRDS_IMG_SRC,
+  BIRDS_PROGRESS,
+  BIRDS_DATA,
+  MAX_COUNT_BIRDS,
+  AGREE_ANSWER,
+  ERROR_ANSWER,
+  ZERO,
+  MAX_FACTOR,
+  BIRDS_IMG_SRC,
 } from './constants';
 import { getRandomNumber, playAudio } from './service';
 import { Bird } from './Interfaces/Bird';
@@ -20,12 +27,14 @@ interface AppState {
   selectedBird: Bird,
   isFalse: boolean,
   imgSrc: string,
+  progress: any,
 }
 
 class App extends React.Component<{}, AppState> {
   constructor(props: any) {
     super(props);
     this.state = {
+      progress: BIRDS_PROGRESS,
       isFalse: true,
       score: ZERO,
       level: ZERO,
@@ -61,6 +70,7 @@ class App extends React.Component<{}, AppState> {
 
   stepNextLevel = () => {
     let { level } = this.state;
+    this.changeProgress(level);
     this.setState({ level: level += 1 });
     this.setState(
       {
@@ -70,6 +80,17 @@ class App extends React.Component<{}, AppState> {
         imgSrc: BIRDS_IMG_SRC,
       },
     );
+  }
+
+  changeProgress = (step: number) => {
+    const { progress } = this.state;
+    const newProgress = progress.map((item: object, index: number) => {
+      if (step === index) {
+        return { ...item, complete: true };
+      }
+      return { ...item };
+    });
+    this.setState({ progress: newProgress });
   }
 
   checkAnswer = (selectedBird: Bird) => {
@@ -88,6 +109,7 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     const {
+      progress: birds,
       score,
       level,
       actualBird,
@@ -110,7 +132,7 @@ class App extends React.Component<{}, AppState> {
         </div>
         <div className="row">
           <div className="col-12 mt-5">
-            <Menu />
+            <Menu birds={birds} />
           </div>
         </div>
         <div className="row">

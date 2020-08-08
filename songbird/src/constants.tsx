@@ -1,16 +1,23 @@
-export const BIRDS: string[] = ['Разминка', 'Воробьиные', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы'];
+export const BIRDS_PROGRESS = [
+  { id: 1, name: 'Разминка', complete: false },
+  { id: 2, name: 'Воробьиные', complete: false },
+  { id: 3, name: 'Лесные птицы', complete: false },
+  { id: 4, name: 'Певчие птицы', complete: false },
+  { id: 5, name: 'Хищные птицы', complete: false },
+  { id: 6, name: 'Морские птицы', complete: false },
+];
 
-export const MAX_COUNT_BIRDS = 6;
+export const MAX_COUNT_BIRDS: number = 6;
 
-export const ZERO = 0;
+export const ZERO: number = 0;
 
-export const MAX_FACTOR = 5;
+export const MAX_FACTOR: number = 5;
 
-export const AGREE_ANSWER = '/audio/correct.mp3';
+export const AGREE_ANSWER: string = '/audio/correct.mp3';
 
-export const ERROR_ANSWER = '/audio/error.mp3';
+export const ERROR_ANSWER: string = '/audio/error.mp3';
 
-export const BIRDS_IMG_SRC = '/img/bird.jpg';
+export const BIRDS_IMG_SRC: string = '/img/bird.jpg';
 
 export const BIRDS_DATA = [
   [

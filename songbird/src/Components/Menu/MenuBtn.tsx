@@ -1,12 +1,22 @@
 import React from 'react';
 
 interface menuBtnProps {
-  title: string
+  id: number,
+  name: string,
+  complete: boolean,
 }
 
 const MenuBtn: React.FC<menuBtnProps> = (props: menuBtnProps) => {
-  const { title } = props;
-  const btn = <button type="button" className="btn btn-info">{title}</button>;
+  const { id, name, complete } = props;
+  const changeClassName = () => {
+    if (complete) {
+      return 'btn btn-info';
+    }
+    return 'btn btn-light';
+  };
+
+  const btn = <button key={id} type="button" className={changeClassName()}>{name}</button>;
+
   return (
     <>
       {btn}
