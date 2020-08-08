@@ -20,16 +20,20 @@ const Info: React.FC<InfoProps> = (props: InfoProps) => {
           <div className="card-body">
             <h5 className="card-title">
               {bird.name}
+              <br />
+              {bird.species}
             </h5>
-            <div className="card-text">
-              <Player src={bird.audio} />
-            </div>
-            <p className="card-text">
-              <small className="text-muted">
-                {bird.description}
-              </small>
-            </p>
           </div>
+        </div>
+        <div className="col-12 p-2">
+          <div className="card-text">
+            <Player src={bird.audio} />
+          </div>
+          <p className="card-text">
+            <small className="text-muted">
+              {bird.description}
+            </small>
+          </p>
         </div>
       </div>
     </div>

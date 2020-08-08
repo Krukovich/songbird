@@ -28,12 +28,14 @@ interface AppState {
   isFalse: boolean,
   imgSrc: string,
   progress: any,
+  startLevel: boolean,
 }
 
 class App extends React.Component<{}, AppState> {
   constructor(props: any) {
     super(props);
     this.state = {
+      startLevel: true,
       progress: BIRDS_PROGRESS,
       isFalse: true,
       score: ZERO,
@@ -71,13 +73,14 @@ class App extends React.Component<{}, AppState> {
   stepNextLevel = () => {
     let { level } = this.state;
     this.changeProgress(level);
-    this.setState({ level: level += 1 });
     this.setState(
       {
         actualBird: this.getRandomBird(level),
         isFalse: true,
         isFactor: MAX_FACTOR,
         imgSrc: BIRDS_IMG_SRC,
+        startLevel: true,
+        level: level += 1,
       },
     );
   }
@@ -96,6 +99,7 @@ class App extends React.Component<{}, AppState> {
   checkAnswer = (selectedBird: Bird) => {
     const { actualBird } = this.state;
     this.setState({ selectedBird });
+    this.setState({ startLevel: false });
 
     if (selectedBird === actualBird) {
       playAudio(AGREE_ANSWER);
@@ -116,6 +120,7 @@ class App extends React.Component<{}, AppState> {
       selectedBird,
       isFalse: answerIsTrue,
       imgSrc,
+      startLevel,
     } = this.state;
 
     const imgStyle = {
@@ -154,7 +159,7 @@ class App extends React.Component<{}, AppState> {
             />
           </div>
           <div className="col-12 col-md-8 col-lg-6 mt-5">
-            {(answerIsTrue) ? <Hint /> : <Info src={imgSrc} bird={selectedBird} />}
+            {(startLevel) ? <Hint /> : <Info src={imgSrc} bird={selectedBird} />}
           </div>
         </div>
         <div className="row">
