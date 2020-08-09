@@ -73,6 +73,7 @@ class App extends React.Component<{}, AppState> {
   stepNextLevel = () => {
     let { level } = this.state;
     this.changeProgress(level);
+    this.setState({ level: level += 1 });
     this.setState(
       {
         actualBird: this.getRandomBird(level),
@@ -80,7 +81,6 @@ class App extends React.Component<{}, AppState> {
         isFactor: MAX_FACTOR,
         imgSrc: BIRDS_IMG_SRC,
         startLevel: true,
-        level: level += 1,
       },
     );
   }
