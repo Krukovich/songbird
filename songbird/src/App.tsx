@@ -6,6 +6,7 @@ import BirdsList from './Components/BirdsList/BirdsList';
 import Info from './Components/Info/Info';
 import Alert from './Components/Alert/Alert';
 import Hint from './Components/Hint/Hint';
+import Finish from './Components/Finish/Finish';
 import {
   BIRDS_PROGRESS,
   BIRDS_DATA,
@@ -76,6 +77,9 @@ class App extends React.Component<{}, AppState> {
     let { level } = this.state;
     this.changeProgress(level);
     this.setState({ level: level += 1 });
+    if (level === MAX_COUNT_BIRDS) {
+      return;
+    }
     this.setState(
       {
         actualBird: this.getRandomBird(level),
@@ -145,44 +149,50 @@ class App extends React.Component<{}, AppState> {
             <Header score={score} />
           </div>
         </div>
-        <div className="row">
-          <div className="col-12 mt-5">
-            <Menu birds={birds} />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 col-md-4 col-lg-3 mt-5 img-fluid">
-            <img src={imgSrc} style={imgStyle} alt="bird" />
-          </div>
-          <div className="col-12 col-md-8 col-lg-9 mt-5 d-flex flex-column align-item-center w-100">
-            <Alert isFalse={isFalse} nameBird={actualBird.name} />
-            <Player src={actualBird.audio} />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 col-md-4 col-lg-6 mt-5">
-            <BirdsList
-              answers={answers}
-              birds={BIRDS_DATA[level]}
-              checkAnswer={this.checkAnswer}
-            />
-          </div>
-          <div className="col-12 col-md-8 col-lg-6 mt-5">
-            {(startLevel) ? <Hint /> : <Info src={imgSrc} bird={selectedBird} />}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 mt-5 mb-5">
-            <button
-              type="button"
-              className="btn btn-info w-100"
-              disabled={isFalse}
-              onClick={() => this.stepNextLevel()}
-            >
-              Next level
-            </button>
-          </div>
-        </div>
+        {(level !== MAX_COUNT_BIRDS)
+          ? (
+            <div className="wrapper">
+              <div className="row">
+                <div className="col-12 mt-5">
+                  <Menu birds={birds} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12 col-md-4 col-lg-3 mt-5 img-fluid">
+                  <img src={imgSrc} style={imgStyle} alt="bird" />
+                </div>
+                <div className="col-12 col-md-8 col-lg-9 mt-5 d-flex flex-column align-item-center w-100">
+                  <Alert isFalse={isFalse} nameBird={actualBird.name} />
+                  <Player src={actualBird.audio} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12 col-md-4 col-lg-6 mt-5">
+                  <BirdsList
+                    answers={answers}
+                    birds={BIRDS_DATA[level]}
+                    checkAnswer={this.checkAnswer}
+                  />
+                </div>
+                <div className="col-12 col-md-8 col-lg-6 mt-5">
+                  {(startLevel) ? <Hint /> : <Info src={imgSrc} bird={selectedBird} />}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12 mt-5 mb-5">
+                  <button
+                    type="button"
+                    className="btn btn-info w-100"
+                    disabled={isFalse}
+                    onClick={() => this.stepNextLevel()}
+                  >
+                    Next level
+                  </button>
+                </div>
+              </div>
+            </div>
+          )
+          : <Finish score={score} />}
       </div>
     );
   }
