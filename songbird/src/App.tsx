@@ -29,14 +29,14 @@ interface AppState {
   imgSrc: string,
   progress: any,
   startLevel: boolean,
-  agreeAnswer: ANSWER[],
+  answers: ANSWER[],
 }
 
 class App extends React.Component<{}, AppState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      agreeAnswer: [],
+      answers: [],
       startLevel: true,
       progress: BIRDS_PROGRESS,
       isFalse: true,
@@ -99,7 +99,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   checkAnswer = (selectedBird: Bird) => {
-    const { actualBird, agreeAnswer } = this.state;
+    const { actualBird, answers } = this.state;
     this.setState({ selectedBird });
     this.setState({ startLevel: false });
 
@@ -107,11 +107,11 @@ class App extends React.Component<{}, AppState> {
       playAudio(AGREE_ANSWER);
       this.incrementScore();
       this.setState({ isFalse: false, imgSrc: selectedBird.image });
-      this.setState({ agreeAnswer: [...agreeAnswer, { name: selectedBird.name, answer: true }] });
+      this.setState({ answers: [...answers, { name: selectedBird.name, answer: true }] });
     } else {
       playAudio(ERROR_ANSWER);
       this.decrementIsFactor();
-      this.setState({ agreeAnswer: [...agreeAnswer, { name: selectedBird.name, answer: false }] });
+      this.setState({ answers: [...answers, { name: selectedBird.name, answer: false }] });
     }
   }
 
@@ -125,7 +125,7 @@ class App extends React.Component<{}, AppState> {
       isFalse: answerIsTrue,
       imgSrc,
       startLevel,
-      agreeAnswer,
+      answers,
     } = this.state;
 
     const imgStyle = {
@@ -157,7 +157,7 @@ class App extends React.Component<{}, AppState> {
         <div className="row">
           <div className="col-12 col-md-4 col-lg-6 mt-5">
             <BirdsList
-              agreeList={agreeAnswer}
+              answers={answers}
               birds={BIRDS_DATA[level]}
               checkAnswer={this.checkAnswer}
             />

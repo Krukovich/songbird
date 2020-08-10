@@ -4,19 +4,19 @@ import { ANSWER } from '../../Interfaces/Bird';
 interface BirdsListProps {
   birds: any[],
   checkAnswer: Function,
-  agreeList: ANSWER[],
+  answers: ANSWER[],
 }
 
 const BirdsList: React.FC<BirdsListProps> = (props: BirdsListProps) => {
   const {
     birds,
     checkAnswer,
-    agreeList,
+    answers,
   } = props;
 
   const insertClass = (name: string) => {
     let highlightClass: string = '';
-    agreeList.forEach((item: any) => {
+    answers.forEach((item: any) => {
       if (name === item.name) {
         if (item.answer) {
           highlightClass = 'bg-success';
