@@ -1,16 +1,16 @@
 import React from 'react';
 
 interface AlertProps {
-  isAgree: boolean,
+  isFalse: boolean,
   nameBird: string,
 }
 
 const Alert: React.FC<AlertProps> = (props: AlertProps) => {
-  const { nameBird, isAgree } = props;
+  const { nameBird, isFalse } = props;
 
   return (
     <div className="alert alert-info" role="alert">
-      {(nameBird && !isAgree) ? nameBird : '*****'}
+      {(nameBird && !isFalse) ? nameBird : '*****'}
     </div>
   );
 };

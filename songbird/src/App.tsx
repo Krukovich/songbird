@@ -99,7 +99,12 @@ class App extends React.Component<{}, AppState> {
   }
 
   checkAnswer = (selectedBird: Bird) => {
-    const { actualBird, answers } = this.state;
+    const { actualBird, answers, isFalse } = this.state;
+
+    if (!isFalse) {
+      return;
+    }
+
     this.setState({ selectedBird });
     this.setState({ startLevel: false });
 
@@ -122,7 +127,7 @@ class App extends React.Component<{}, AppState> {
       level,
       actualBird,
       selectedBird,
-      isFalse: answerIsTrue,
+      isFalse,
       imgSrc,
       startLevel,
       answers,
@@ -150,7 +155,7 @@ class App extends React.Component<{}, AppState> {
             <img src={imgSrc} style={imgStyle} alt="bird" />
           </div>
           <div className="col-12 col-md-8 col-lg-9 mt-5 d-flex flex-column align-item-center w-100">
-            <Alert isAgree={answerIsTrue} nameBird={actualBird.name} />
+            <Alert isFalse={isFalse} nameBird={actualBird.name} />
             <Player src={actualBird.audio} />
           </div>
         </div>
@@ -171,7 +176,7 @@ class App extends React.Component<{}, AppState> {
             <button
               type="button"
               className="btn btn-info w-100"
-              disabled={answerIsTrue}
+              disabled={isFalse}
               onClick={() => this.stepNextLevel()}
             >
               Next level
