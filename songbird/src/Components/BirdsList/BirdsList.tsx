@@ -1,41 +1,53 @@
 import React from 'react';
-import { Bird } from '../../Interfaces/Bird';
+import { ANSWER } from '../../Interfaces/Bird';
 
 interface BirdsListProps {
   birds: any[],
   checkAnswer: Function,
-  selectedBird: Bird,
-  actualBird: Bird,
+  agreeList: ANSWER[],
 }
 
 const BirdsList: React.FC<BirdsListProps> = (props: BirdsListProps) => {
   const {
     birds,
-    selectedBird,
-    actualBird,
     checkAnswer,
+    agreeList,
   } = props;
+
+  const insertClass = (name: string) => {
+    let highlightClass: string = '';
+    agreeList.forEach((item: any) => {
+      if (name === item.name) {
+        if (item.answer) {
+          highlightClass = 'bg-success';
+        } else {
+          highlightClass = 'bg-danger';
+        }
+      }
+    });
+    return highlightClass;
+  };
+
+  const toggleDisable = (value: string) => {
+    if (value === 'bg-danger') {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <div className="list-group">
-      {birds.map((bird) => {
-        let highlightCLass: string = '';
-
-        if (bird === selectedBird) {
-          highlightCLass = (bird === actualBird) ? 'bg-success' : 'bg-danger';
-        }
-
-        return (
-          <button
-            type="button"
-            className={`list-group-item list-group-item-action ${highlightCLass}`}
-            key={bird.id}
-            onClick={() => checkAnswer(bird)}
-          >
-            {bird.name}
-          </button>
-        );
-      })}
+      {birds.map((bird) => (
+        <button
+          type="button"
+          className={`list-group-item list-group-item-action ${insertClass(bird.name)}`}
+          key={bird.id}
+          disabled={toggleDisable(insertClass(bird.name))}
+          onClick={() => checkAnswer(bird)}
+        >
+          {bird.name}
+        </button>
+      ))}
     </div>
   );
 };

@@ -6,3 +6,8 @@ export interface Bird {
   name: string,
   species: string,
 }
+
+export interface ANSWER {
+  name: string,
+  answer: boolean,
+}
