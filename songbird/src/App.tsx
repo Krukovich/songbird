@@ -20,6 +20,8 @@ import {
 import { getRandomNumber, playAudio } from './service';
 import { Bird, ANSWER } from './Interfaces/Bird';
 
+import './app.scss';
+
 interface AppState {
   score: number,
   level: number,
@@ -153,28 +155,33 @@ class App extends React.Component<{}, AppState> {
           ? (
             <div className="wrapper">
               <div className="row">
-                <div className="col-12 mt-5">
+                <div className="col-12 mt-5 block_shadow">
                   <Menu birds={birds} />
                 </div>
               </div>
-              <div className="row">
-                <div className="col-12 col-md-4 col-lg-3 mt-5 img-fluid">
+              <div className="row justify-content-between">
+                <div className="col-12 col-md-4 col-lg-3 mt-5 text-center img-fluid block_shadow">
                   <img src={imgSrc} style={imgStyle} alt="bird" />
                 </div>
-                <div className="col-12 col-md-8 col-lg-9 mt-5 d-flex flex-column align-item-center w-100">
-                  <Alert isFalse={isFalse} nameBird={actualBird.name} />
-                  <Player src={actualBird.audio} />
+                <div className="col-12 col-md-8 col-lg-8 mt-5 d-flex flex-column align-item-center w-100 block_shadow">
+                  <Alert
+                    isFalse={isFalse}
+                    nameBird={actualBird.name}
+                  />
+                  <Player
+                    src={actualBird.audio}
+                  />
                 </div>
               </div>
-              <div className="row">
-                <div className="col-12 col-md-4 col-lg-6 mt-5">
+              <div className="row justify-content-between">
+                <div className="col-12 col-md-4 col-lg-5 mt-5 block_shadow">
                   <BirdsList
                     answers={answers}
                     birds={BIRDS_DATA[level]}
                     checkAnswer={this.checkAnswer}
                   />
                 </div>
-                <div className="col-12 col-md-8 col-lg-6 mt-5">
+                <div className="col-12 col-md-8 col-lg-6 mt-5 block_shadow">
                   {(startLevel) ? <Hint /> : <Info src={imgSrc} bird={selectedBird} />}
                 </div>
               </div>
