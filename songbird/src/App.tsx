@@ -196,13 +196,21 @@ class App extends React.Component<{}, AppState> {
                     disabled={isFalse}
                     onClick={() => this.stepNextLevel()}
                   >
-                    Next level
+                    Следующий уровень
                   </button>
                 </div>
               </div>
             </div>
           )
           : <Finish score={score} />}
+        <div className="banner">
+          <img
+            className="flying-bird banner_animated"
+            src="img/flying-birds.png"
+            alt="bird"
+          />
+          <span className="shadow" />
+        </div>
       </div>
     );
   }

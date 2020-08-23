@@ -6,7 +6,7 @@ interface Props {
 
 const Score: React.FC<Props> = ({ score }: Props) => (
   <span className="badge badge-info">
-    Score
+    Очки:
     {' '}
     {score}
   </span>

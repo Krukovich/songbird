@@ -6,6 +6,10 @@
   padding: 20px;
 }
 
+.flying-bird {
+  width: 10rem;
+}
+
 .transition-slide {
   position: relative;
   overflow: hidden;
@@ -43,5 +47,44 @@
   100% {
     left: 110%;
     margin-left: 80px;
+  }
+}
+
+.banner {
+  position: absolute;
+  top: 1rem;
+  left: 3rem;
+
+  .banner_animated {
+    animation: upDown 2s infinite alternate;
+  }
+
+  .shadow {
+    display: block;
+    width: 100px;
+    height: 30px;
+    margin-top: 20px;
+    background: #000;
+    opacity: 0.6;
+    border-radius: 100%;
+    transform: translateY(60px);
+    filter: blur(17px);
+    animation: shadow 2s infinite alternate;
+  }
+
+  @keyframes shadow {
+    from {
+      width: 100px;
+    }
+
+    to {
+      width: 150px;
+    }
+  }
+
+  @keyframes upDown {
+    to {
+      transform: translateY(40px);
+    }
   }
 }
