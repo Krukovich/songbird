@@ -5,10 +5,11 @@ interface Props {
 }
 
 const Score: React.FC<Props> = ({ score }: Props) => (
-  <>
-    Score:
+  <span className="badge badge-info">
+    Score
+    {' '}
     {score}
-  </>
+  </span>
 );
 
 export default Score;

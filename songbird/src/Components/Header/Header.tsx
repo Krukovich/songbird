@@ -10,13 +10,13 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-12 col-lg-6 d-flex justify-content-start">
-          <h1>
-            Songbird
-          </h1>
+      <div className="row align-items-center">
+        <div className="col-12 col-lg-3 d-flex justify-content-start">
+          <div className="logo">
+            <img className="img-fluid" src="/img/logo.svg" alt="logo" />
+          </div>
         </div>
-        <div className="col-12 col-lg-6 d-flex justify-content-end">
+        <div className="col-12 col-lg-9 d-flex justify-content-end">
           <Score score={score} />
         </div>
       </div>

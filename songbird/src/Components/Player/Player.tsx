@@ -4,20 +4,23 @@ import 'react-h5-audio-player/lib/styles.css';
 
 interface PlayerProps {
   src: string,
+  isFalse: boolean,
 }
 
 const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
-  const { src } = props;
+  const { src, isFalse } = props;
 
   const player: any = useRef(null);
 
   useEffect(() => {
-    player.current.audio.current.pause();
-  });
+    if (!isFalse) {
+      player.current.audio.current.pause();
+    }
+  }, [player]);
 
   return (
     <AudioPlayer
-      autoPlay
+      autoPlay={false}
       autoPlayAfterSrcChange={false}
       ref={player}
       src={src}

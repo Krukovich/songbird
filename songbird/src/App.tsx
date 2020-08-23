@@ -170,6 +170,7 @@ class App extends React.Component<{}, AppState> {
                   />
                   <Player
                     src={actualBird.audio}
+                    isFalse={isFalse}
                   />
                 </div>
               </div>
@@ -182,14 +183,16 @@ class App extends React.Component<{}, AppState> {
                   />
                 </div>
                 <div className="col-12 col-md-8 col-lg-6 mt-5 block_shadow">
-                  {(startLevel) ? <Hint /> : <Info src={imgSrc} bird={selectedBird} />}
+                  {(startLevel)
+                    ? <Hint />
+                    : <Info src={imgSrc} bird={selectedBird} isFalse={isFalse} />}
                 </div>
               </div>
               <div className="row">
                 <div className="col-12 mt-5 mb-5">
                   <button
                     type="button"
-                    className="btn btn-info w-100"
+                    className="btn btn-info w-100 transition-slide"
                     disabled={isFalse}
                     onClick={() => this.stepNextLevel()}
                   >

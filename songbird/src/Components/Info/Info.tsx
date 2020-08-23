@@ -5,10 +5,15 @@ import { Bird } from '../../Interfaces/Bird';
 interface InfoProps {
   bird: Bird,
   src: string,
+  isFalse: boolean,
 }
 
 const Info: React.FC<InfoProps> = (props: InfoProps) => {
-  const { bird, src } = props;
+  const {
+    bird,
+    src,
+    isFalse,
+  } = props;
 
   return (
     <div className="card mb-3">
@@ -27,7 +32,10 @@ const Info: React.FC<InfoProps> = (props: InfoProps) => {
         </div>
         <div className="col-12 p-2">
           <div className="card-text">
-            <Player src={bird.audio} />
+            <Player
+              src={bird.audio}
+              isFalse={isFalse}
+            />
           </div>
           <p className="card-text">
             <small className="text-muted">

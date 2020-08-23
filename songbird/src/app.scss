@@ -5,3 +5,43 @@
   box-shadow: 0px 0px 35px 5px rgba(48, 48, 48, 0.2);
   padding: 20px;
 }
+
+.transition-slide {
+  position: relative;
+  overflow: hidden;
+}
+
+.transition-slide::before {
+  position: absolute;
+  left: -40px;
+  top: -150px;
+  content: "";
+  width: 30px;
+  height: 300px;
+  background: #ffffff80;
+  animation-delay: .05s;
+  margin-left: 60px;
+  animation-timing-function: ease-in-out;
+  transition: all .1s;
+  animation-name: slide;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  transform: rotate(45deg);
+}
+
+@keyframes slide {
+  0% {
+    left: -30px;
+    margin-left: 0;
+  }
+
+  30% {
+    left: 110%;
+    margin-left: 80px;
+  }
+
+  100% {
+    left: 110%;
+    margin-left: 80px;
+  }
+}
