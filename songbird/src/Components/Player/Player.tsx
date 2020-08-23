@@ -16,7 +16,7 @@ const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
     if (!isFalse) {
       player.current.audio.current.pause();
     }
-  }, [player]);
+  }, [isFalse]);
 
   return (
     <AudioPlayer

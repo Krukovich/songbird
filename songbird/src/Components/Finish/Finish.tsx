@@ -8,24 +8,31 @@ const Finish: React.FC<FinishProps> = (props: FinishProps) => {
   const { score } = props;
 
   return (
-    <div className="card mb-3">
+    <div className="card mt-5 mb-3 block_shadow">
       <div className="row no-gutters">
         <div className="col-md-4">
-          <img className="card-img img-fluid" alt="bird" />
+          <img className="card-img img-fluid" src="img/finish_bird.png" alt="bird" />
         </div>
-        <div className="col-md-12 text-center">
+        <div className="col-md-8 text-center d-flex align-items-center">
           <div className="card-body">
-            <h5 className="card-title">
-              <h1>
-                Вы закончили игру!
-              </h1>
-              <br />
+            <h1 className="card-title">
+              Вы закончили игру!
+            </h1>
+            <p className="card-text">
               с результатом
               {' '}
               {score}
               {' '}
               очков.
-            </h5>
+            </p>
+            <p className="card-text">
+              <button
+                type="button"
+                className="btn btn-info transition-slide"
+              >
+                Сыграть снова
+              </button>
+            </p>
           </div>
         </div>
       </div>
