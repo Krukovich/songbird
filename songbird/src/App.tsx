@@ -163,7 +163,7 @@ class App extends React.Component<{}, AppState> {
                 <div className="col-12 col-md-4 col-lg-3 mt-5 text-center img-fluid block_shadow">
                   <img src={imgSrc} style={imgStyle} alt="bird" />
                 </div>
-                <div className="col-12 col-md-8 col-lg-8 mt-5 d-flex flex-column align-item-center w-100 block_shadow">
+                <div className="col-12 col-md-7 col-lg-8 mt-5 d-flex flex-column align-item-center w-100 block_shadow">
                   <Alert
                     isFalse={isFalse}
                     nameBird={actualBird.name}
@@ -175,14 +175,14 @@ class App extends React.Component<{}, AppState> {
                 </div>
               </div>
               <div className="row justify-content-between">
-                <div className="col-12 col-md-4 col-lg-5 mt-5 block_shadow">
+                <div className="col-12 col-sm-5 col-md-3 col-lg-5 mt-5 block_shadow">
                   <BirdsList
                     answers={answers}
                     birds={BIRDS_DATA[level]}
                     checkAnswer={this.checkAnswer}
                   />
                 </div>
-                <div className="col-12 col-md-8 col-lg-6 mt-5 block_shadow">
+                <div className="col-12 col-sm-6 col-md-8 col-lg-6 mt-5 block_shadow">
                   {(startLevel)
                     ? <Hint />
                     : <Info src={imgSrc} bird={selectedBird} isFalse={isFalse} />}
