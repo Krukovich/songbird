@@ -19,9 +19,9 @@ const BirdsList: React.FC<BirdsListProps> = (props: BirdsListProps) => {
     answers.forEach((item: any) => {
       if (name === item.name) {
         if (item.answer) {
-          highlightClass = 'bg-success';
+          highlightClass = 'is-valid';
         } else {
-          highlightClass = 'bg-danger';
+          highlightClass = 'is-invalid';
         }
       }
     });
@@ -29,7 +29,7 @@ const BirdsList: React.FC<BirdsListProps> = (props: BirdsListProps) => {
   };
 
   const toggleDisable = (value: string) => {
-    if (value === 'bg-danger') {
+    if (value === 'is-invalid') {
       return true;
     }
     return false;
@@ -38,15 +38,15 @@ const BirdsList: React.FC<BirdsListProps> = (props: BirdsListProps) => {
   return (
     <div className="list-group w-100">
       {birds.map((bird) => (
-        <button
-          type="button"
-          className={`list-group-item list-group-item-action ${insertClass(bird.name)}`}
+        <input
+          type="text"
+          className={`form-control mt-2 ${insertClass(bird.name)}`}
+          value={bird.name}
           key={bird.id}
           disabled={toggleDisable(insertClass(bird.name))}
           onClick={() => checkAnswer(bird)}
-        >
-          {bird.name}
-        </button>
+          readOnly
+        />
       ))}
     </div>
   );
