@@ -203,7 +203,7 @@ class App extends React.Component<{}, AppState> {
                 </div>
               </div>
               <div className="row justify-content-between">
-                <div className="col-12 col-sm-5 col-md-3 col-lg-5 mt-5 block_shadow">
+                <div className="col-12 col-sm-5 col-md-3 col-lg-5 mt-5 d-flex align-items-center block_shadow">
                   <BirdsList
                     answers={answers}
                     birds={BIRDS_DATA[level]}
@@ -213,7 +213,12 @@ class App extends React.Component<{}, AppState> {
                 <div className="col-12 col-sm-6 col-md-8 col-lg-6 mt-5 block_shadow">
                   {(startLevel)
                     ? <Hint />
-                    : <Info src={imgSrc} bird={selectedBird} isFalse={isFalse} />}
+                    : (
+                      <Info
+                        bird={selectedBird}
+                        isFalse={isFalse}
+                      />
+                    )}
                 </div>
               </div>
               <div className="row">

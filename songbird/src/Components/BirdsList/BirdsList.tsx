@@ -36,7 +36,7 @@ const BirdsList: React.FC<BirdsListProps> = (props: BirdsListProps) => {
   };
 
   return (
-    <div className="list-group">
+    <div className="list-group w-100">
       {birds.map((bird) => (
         <button
           type="button"

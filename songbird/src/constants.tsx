@@ -19,6 +19,8 @@ export const ERROR_ANSWER: string = '/audio/error.mp3';
 
 export const BIRDS_IMG_SRC: string = '/img/bird.jpg';
 
+export const NOT_FOUND: string = '/img/no_image.jpg';
+
 export const BIRDS_DATA = [
   [
     {
