@@ -75,9 +75,37 @@ class App extends React.Component<{}, AppState> {
     }
   }
 
+  restartGame = () => {
+    const { progress } = this.state;
+
+    const newProgress = progress.map((item: object) => ({ ...item, complete: false }));
+
+    this.setState(
+      {
+        level: ZERO,
+        score: ZERO,
+        progress: newProgress,
+        startLevel: true,
+        isFalse: true,
+        isFactor: MAX_FACTOR,
+        answers: [],
+        imgSrc: BIRDS_IMG_SRC,
+        actualBird: this.getRandomBird(ZERO),
+        selectedBird: {
+          audio: '',
+          description: '',
+          id: ZERO,
+          image: '',
+          name: '',
+          species: '',
+        },
+      },
+    );
+  }
+
   stepNextLevel = () => {
     let { level } = this.state;
-    this.changeProgress(level);
+    this.changeProgress(level, true);
     this.setState({ level: level += 1 });
     if (level === MAX_COUNT_BIRDS) {
       return;
@@ -93,11 +121,11 @@ class App extends React.Component<{}, AppState> {
     );
   }
 
-  changeProgress = (step: number) => {
+  changeProgress = (step: number, label: boolean) => {
     const { progress } = this.state;
     const newProgress = progress.map((item: object, index: number) => {
       if (step === index) {
-        return { ...item, complete: true };
+        return { ...item, complete: label };
       }
       return { ...item };
     });
@@ -202,7 +230,12 @@ class App extends React.Component<{}, AppState> {
               </div>
             </div>
           )
-          : <Finish score={score} />}
+          : (
+            <Finish
+              score={score}
+              restartGame={this.restartGame}
+            />
+          )}
         <div className="banner">
           <img
             className="flying-bird banner_animated"

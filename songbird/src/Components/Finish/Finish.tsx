@@ -2,10 +2,11 @@ import React from 'react';
 
 interface FinishProps {
   score: number,
+  restartGame: Function,
 }
 
 const Finish: React.FC<FinishProps> = (props: FinishProps) => {
-  const { score } = props;
+  const { score, restartGame } = props;
 
   return (
     <div className="card mt-5 mb-3 block_shadow">
@@ -29,6 +30,7 @@ const Finish: React.FC<FinishProps> = (props: FinishProps) => {
               <button
                 type="button"
                 className="btn btn-info transition-slide"
+                onClick={() => restartGame()}
               >
                 Сыграть снова
               </button>
